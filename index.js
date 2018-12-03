@@ -45,6 +45,7 @@ function adjust() {
     for (let j = i+1; j < characters.length; j++) {
       pushOff(characters[i], characters[j]);
     }
+    avoidWalls(characters[i]);
   }
 }
 
@@ -61,3 +62,14 @@ function pushOff(c1, c2) {
     c2.y += adjustY;
   }
 }
+function avoidWalls(character){
+  if (character.x<0){
+    character.x =0
+    } else if(character.x>800){
+      character.x = 800
+    }else if(character.y>600){
+      character.y = 600
+    }else if(character.y<0){
+      character.y = 0
+    }
+  }
