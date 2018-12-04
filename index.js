@@ -1,5 +1,3 @@
-
-
 const progressBar = document.querySelector("progress")
 
 class Character {
@@ -23,6 +21,7 @@ const enemies = [
   new Character(0, 300, "rgb(80,200,235)", 20, 0.003),
   new Character(20, 400, "rgb(100,170,190)", 12, 0.02),
 ];
+let scarecrow;
 
 function setup()  {
   bg = loadImage("grass.jpg");
@@ -35,7 +34,14 @@ function draw() {
   player.draw();
   enemies.forEach(enemy => enemy.draw());
   player.move({x: mouseX, y: mouseY});
-  enemies.forEach(enemy => enemy.move(player));
+  enemies.forEach(enemy => enemy.move(scarecrow || player));
+  if (scarecrow) {
+    scarecrow.draw();
+    scarecrow.ttl--;
+    if (scarecrow.ttl < 0) {
+      scarecrow = undefined;
+    }
+  }
   adjust();
 }
 
@@ -64,12 +70,18 @@ function pushOff(c1, c2) {
 }
 function avoidWalls(character){
   if (character.x<0){
-    character.x =0
+    character.x =0+character.radius
     } else if(character.x>800){
-      character.x = 800
+      character.x = 800-character.radius
     }else if(character.y>600){
-      character.y = 600
+      character.y = 600-character.radius
     }else if(character.y<0){
-      character.y = 0
+      character.y = 0+character.radius
     }
   }
+function mouseClicked() {
+  if (!scarecrow) {
+    scarecrow = new Character(player.x, player.y, "white", 10, 0);
+    scarecrow.ttl = frameRate() * 5;
+  }
+}
