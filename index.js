@@ -6,12 +6,11 @@ const mouseSpan = document.querySelector("#mouse");
 const progressBar = document.querySelector("progress")
 
 class Character {
-  constructor(x, y, color, radius, speed) {
-    Object.assign(this, { x, y, color, radius, speed });
+  constructor(x, y, image, radius, speed) {
+    Object.assign(this, { x, y, image, radius, speed });
   }
   draw() {
-    fill(this.color);
-    ellipse(this.x, this.y, this.radius * 2);
+    image(this.image,this.x, this.y)
   }
   move(target) {
     this.x += (target.x - this.x) * this.speed;
