@@ -13,8 +13,11 @@ class Character {
   constructor(x, y, sprite, speed) {
     Object.assign(this, { x, y, sprite, speed });
   }
-  draw() {
+  drawE() {
     image(enemySprite,this.x,this.y);
+  }
+  drawP() {
+    image(playerSprite,this.x,this.y);
   }
   move(target) {
     this.x += (target.x - this.x) * this.speed;
@@ -37,13 +40,13 @@ function setup()  {
 
 function draw() {
   background(backgroundImage);
-  // player.draw();
+  player.drawP();
   image(playerSprite,player.x,player.y);
-  enemies.forEach(enemy => enemy.draw());
+  enemies.forEach(enemy => enemy.drawE());
   player.move({x: mouseX, y: mouseY});
   enemies.forEach(enemy => enemy.move(scarecrow || player));
   if (scarecrow) {
-    scarecrow.draw();
+    scarecrow.drawP();
     scarecrow.ttl--;
     if (scarecrow.ttl < 0) {
       scarecrow = undefined;
@@ -88,7 +91,7 @@ function avoidWalls(character){
   }
 function mouseClicked() {
   if (!scarecrow) {
-    scarecrow = new Character(player.x, player.y, "white", 10, 0);
+    scarecrow = new Character(player.x, player.y, playerSprite, 0);
     scarecrow.ttl = frameRate() * 5;
   }
 }
