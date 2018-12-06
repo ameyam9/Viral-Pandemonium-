@@ -1,19 +1,13 @@
 body {
-  font-family: 'Black And White Picture', sans-serif;
-  margin: 20px;
+  font-family: 'Fredericka the Great', cursive;
+  text-align: center;
+  background-color:crimson;
 }
 
-header {
-  font-size: 100px;
-  text-align:center;
-  margin: 20px;
+h1 {
+  font-size: 120px;
 }
 
-footer {
-  font-style: italic;
-  font-size: 10px;
+p {
+  font-size: 70px;
 }
-
-/* border {
-
-} */
