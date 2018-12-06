@@ -1,46 +1,44 @@
-var backgroundImage;
+let backgroundImage, playerSprite, enemySprite;
 
-const mouseSpan = document.querySelector("#mouse");
+function preload(){
+backgroundImage = loadImage("vein.png");
+playerSprite = loadImage("virus.png");
+enemySprite = loadImage("whiteBloodCell.png");
+}
 
 
 const progressBar = document.querySelector("progress")
 
 class Character {
-  constructor(x, y, image, radius, speed) {
-    Object.assign(this, { x, y, image, radius, speed });
+  constructor(x, y, sprite, speed) {
+    Object.assign(this, { x, y, sprite, speed });
   }
   draw() {
-    image(this.image,this.x, this.y)
+    image(enemySprite,this.x,this.y);
   }
   move(target) {
     this.x += (target.x - this.x) * this.speed;
     this.y += (target.y - this.y) * this.speed;
   }
 }
-
-const player = new Character(30, 30, "blue", 10, 0.05);
+const player = new Character(30, 30, playerSprite, 0.05);
 const enemies = [
-  new Character(300, 0, "rgb(200,190,80)", 15, 0.01),
-  new Character(300, 300, "rgb(240,100,250)", 17, 0.03),
-  new Character(0, 300, "rgb(80,200,235)", 20, 0.003),
-  new Character(20, 400, "rgb(100,170,190)", 12, 0.02),
+  new Character(300, 0, enemySprite, 0.01),
+  new Character(300, 300, enemySprite, 0.03),
+  new Character(0, 300, enemySprite, 0.003),
+  new Character(20, 400, enemySprite, 0.02),
 ];
 let scarecrow;
 
-function preload(){
-
-}
-
 function setup()  {
-  backgroundImage = loadImage("vein.png");
   createCanvas(800, 600);
   noStroke();
 }
 
 function draw() {
-  background(0);
-  image(backgroundImage, 0, 0);
-  player.draw();
+  background(backgroundImage);
+  // player.draw();
+  image(playerSprite,player.x,player.y);
   enemies.forEach(enemy => enemy.draw());
   player.move({x: mouseX, y: mouseY});
   enemies.forEach(enemy => enemy.move(scarecrow || player));
@@ -67,7 +65,7 @@ function adjust() {
 function pushOff(c1, c2) {
   let [dx, dy] = [c2.x - c1.x, c2.y - c1.y];
   const distance = Math.hypot(dx, dy);
-  let overlap = c1.radius + c2.radius - distance;
+  let overlap = 28 - distance;
   if (overlap > 0) {
     const adjustX = (overlap / 2) * (dx / distance);
     const adjustY = (overlap / 2) * (dy / distance);
@@ -78,14 +76,14 @@ function pushOff(c1, c2) {
   }
 }
 function avoidWalls(character){
-  if (character.x<10+character.radius){
-    character.x =10+character.radius
-  } else if(character.x>790-character.radius){
-      character.x = 790-character.radius
-    }else if(character.y>590-character.radius){
-      character.y = 590-character.radius
-    }else if(character.y<10+character.radius){
-      character.y = 10+character.radius
+  if (character.x<10){
+    character.x =10
+  } else if(character.x>770){
+      character.x = 770
+    }else if(character.y>570){
+      character.y = 570
+    }else if(character.y<10){
+      character.y = 10
     }
   }
 function mouseClicked() {

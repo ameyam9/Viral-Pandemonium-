@@ -4,7 +4,7 @@
   "description": "A 2D game inspired by K'Tah. Protect the virus from the Antibodies chasing it. ",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "browser-sync start --server -f -w",
     "start": "http-server"
   },
   "repository": {
