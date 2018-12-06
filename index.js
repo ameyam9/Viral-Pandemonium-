@@ -1,3 +1,8 @@
+var backgroundImage;
+
+const mouseSpan = document.querySelector("#mouse");
+
+
 const progressBar = document.querySelector("progress")
 
 class Character {
@@ -23,14 +28,19 @@ const enemies = [
 ];
 let scarecrow;
 
+function preload(){
+
+}
+
 function setup()  {
-  bg = loadImage("grass.jpg");
+  backgroundImage = loadImage("vein.png");
   createCanvas(800, 600);
   noStroke();
 }
 
 function draw() {
-  background("crimson");
+  background(0);
+  image(backgroundImage, 0, 0);
   player.draw();
   enemies.forEach(enemy => enemy.draw());
   player.move({x: mouseX, y: mouseY});
@@ -69,14 +79,14 @@ function pushOff(c1, c2) {
   }
 }
 function avoidWalls(character){
-  if (character.x<0){
-    character.x =0+character.radius
-    } else if(character.x>800){
-      character.x = 800-character.radius
-    }else if(character.y>600){
-      character.y = 600-character.radius
-    }else if(character.y<0){
-      character.y = 0+character.radius
+  if (character.x<10+character.radius){
+    character.x =10+character.radius
+  } else if(character.x>790-character.radius){
+      character.x = 790-character.radius
+    }else if(character.y>590-character.radius){
+      character.y = 590-character.radius
+    }else if(character.y<10+character.radius){
+      character.y = 10+character.radius
     }
   }
 function mouseClicked() {

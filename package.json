@@ -1,0 +1,24 @@
+{
+  "name": "my-viral-adventures",
+  "version": "1.0.0",
+  "description": "A 2D game inspired by K'Tah. Protect the virus from the Antibodies chasing it. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ameyam9/p5-starter-app.git"
+  },
+  "author": "Ameya Mellacheruvu and Ona Igbinedion",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ameyam9/p5-starter-app/issues"
+  },
+  "homepage": "https://github.com/ameyam9/p5-starter-app#readme",
+  "dependencies": {
+    "browser-sync": "^2.26.3",
+    "http-server": "^0.11.1"
+  }
+}
