@@ -4,21 +4,19 @@ function preload(){
   backgroundImage = loadImage("vein.png");
   playerSprite = loadImage("virus.png");
   enemySprite = loadImage("whiteBloodCell.png");
-  player = new Character(30, 30, playerSprite, 0.05);
+  player = new Character(30, 30, playerSprite, 0.05, 1);
   enemies = [
-    new Character(300, 0, enemySprite, 0.01),
-    new Character(300, 300, enemySprite, 0.03),
-    new Character(0, 300, enemySprite, 0.003),
-    new Character(20, 400, enemySprite, 0.02),
+    new Character(300, 0, enemySprite, 0.01, 1),
+    new Character(300, 300, enemySprite, 0.03, 1),
+    new Character(0, 300, enemySprite, 0.003, 1),
+    new Character(20, 400, enemySprite, 0.02, 1),
   ];
 }
-
-
-const progressBar = document.querySelector("progress")
+const progressBar = document.getElementById("HP")
 
 class Character {
-  constructor(x, y, sprite, speed) {
-    Object.assign(this, { x, y, sprite, speed });
+  constructor(x, y, sprite, speed, level) {
+    Object.assign(this, { x, y, sprite, speed, level });
   }
   draw() {
     image(this.sprite,this.x,this.y);
@@ -55,6 +53,7 @@ function draw() {
 }
 
 function adjust() {
+  virusAttack();
  const characters = [player, ...enemies];
  for (let i = 0; i < characters.length; i++) {
    for (let j = i+1; j < characters.length; j++) {
@@ -94,5 +93,14 @@ function mouseClicked() {
   if (!scarecrow) {
     scarecrow = new Character(player.x, player.y, playerSprite, 0);
     scarecrow.ttl = frameRate() * 5;
+  }
+}
+function virusAttack() {
+  for (let enemy of enemies){
+    let [dx,dy] = [player.x-enemy.x, player.y-enemy.y];
+    const distance = Math.hypot(dx,dy);
+    if (28-distance>0){
+      progressBar.value = progressBar.value- enemy.level;
+    }
   }
 }
