@@ -1,6 +1,7 @@
-let backgroundImage, playerSprite, enemySprite, player, enemies, scarecrow;
+let backgroundImage, playerSprite, enemySprite, player, enemies, scarecrow, font, status = "playing", fontsize = 100;
 
 function preload(){
+  font = loadFont("font/FrederickatheGreat-Regular.ttf")
   backgroundImage = loadImage("vein.png");
   playerSprite = loadImage("virus.png");
   enemySprite = loadImage("whiteBloodCell.png");
@@ -32,10 +33,16 @@ class Character {
 
 function setup()  {
   createCanvas(800, 600);
+  textFont(font);
+  textSize(fontsize);
+  textAlign(CENTER, CENTER);
   noStroke();
 }
 
 function draw() {
+  if (status==="gameOver"){
+    status = "playing";
+  }
   background(backgroundImage);
   player.draw();
   image(playerSprite,player.x,player.y);
@@ -95,12 +102,41 @@ function mouseClicked() {
     scarecrow.ttl = frameRate() * 5;
   }
 }
+function gameOver(){
+  fill("black");
+  text("GAME OVER", 400, 80);
+  textSize(40);
+  text("To Play Again Press 'space'",400, 200)
+  status = "gameOver"
+  noLoop()
+}
+
+function keyPressed(){
+  if(status === "gameOver"){
+    if(key === " "){
+      reset()
+
+    }
+  }
+}
+
+function reset(){
+  loop();
+  progressBar.value = 100;
+  player.x = 30;
+  player.y = 30;
+  enemies.forEach(enemy => enemy.x= 600, enemy.y= 300);
+}
+
 function virusAttack() {
   for (let enemy of enemies){
     let [dx,dy] = [player.x-enemy.x, player.y-enemy.y];
     const distance = Math.hypot(dx,dy);
     if (28-distance>0){
       progressBar.value = progressBar.value- enemy.level;
+    }
+    if (progressBar.value === 0){
+      gameOver()
     }
   }
 }
