@@ -13,7 +13,8 @@ function preload(){
     new Character(20, 400, enemySprite, 0.02, 1),
   ];
 }
-const progressBar = document.getElementById("HP")
+const progressBar = document.getElementById("HP");
+const test = document.getElementById("test");
 
 class Character {
   constructor(x, y, sprite, speed, level) {
@@ -103,6 +104,7 @@ function mouseClicked() {
   }
 }
 function gameOver(){
+  test.textContent = "Eureka! It works!!!!!!"
   fill("black");
   text("GAME OVER", 400, 80);
   textSize(40);
