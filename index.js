@@ -14,7 +14,6 @@ function preload(){
 }
 
 
-const progressBar = document.querySelector("progress")
 
 class Character {
   constructor(x, y, sprite, speed) {
@@ -95,4 +94,15 @@ function mouseClicked() {
     scarecrow = new Character(player.x, player.y, playerSprite, 0);
     scarecrow.ttl = frameRate() * 5;
   }
+}
+//const progressBar = document.getElementById(#progress);
+
+function healthBar(char1, char2) {
+
+if (progressBar.value === 0){
+  alert("Game Over! Click to retry");
+}
+
+
+
 }
