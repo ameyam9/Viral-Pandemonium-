@@ -1,5 +1,5 @@
 let backgroundImage, playerSprite, enemySprite, player, enemies, scarecrow, font, status = "playing", fontsize = 100, score = 0, highscore= 0, level=1;
-
+let document = index.html
 function preload(){
   font = loadFont("font/FrederickatheGreat-Regular.ttf")
   backgroundImage = loadImage("vein.png");
@@ -12,7 +12,7 @@ function preload(){
     new Character(0, 300, enemySprite, 0.003, 1),
     new Character(20, 400, enemySprite, 0.02, 1),
   ];
-}
+};
 const progressBar = document.getElementById("HP");
 const points = document.getElementById("Points");
 const subHead = document.getElementById("subhead");
