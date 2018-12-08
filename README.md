@@ -1,3 +1,2 @@
-Alot of uneven commits within this code, but I assure you that we wrote the same ammount of code. 
 
-This repo is connected directly to GitHub Pages on the master branch, so you can directly run the application <a href="https://rtoal.github.io/p5-starter-app"> here</a>. After you fork this repo. please update the README to point to your own app.
+Welcome to Viral Pandemonium. This web application was created by Ameya Mellacheruvu and Ona Igbinedion. This is a game where you play as a virus trying to not get eaten by the white blood cells around you. You can set up a decoy to ensure that  We were inspired by the legend that came before us, K'Tah as well as Professor Toal getting sick at the offset of this game's creation. The link is "https://secure-basin-35818.herokuapp.com/".Have fun playing. Please note that it appears that we have uneven commits, but we worked evenly on this project.

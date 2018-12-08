@@ -1,4 +1,4 @@
-let backgroundImage, playerSprite, enemySprite, player, enemies, scarecrow, font, status = "playing", fontsize = 100;
+let backgroundImage, playerSprite, enemySprite, player, enemies, scarecrow, font, status = "playing", fontsize = 100, score = 0, highscore= 0, level=1;
 
 function preload(){
   font = loadFont("font/FrederickatheGreat-Regular.ttf")
@@ -14,7 +14,9 @@ function preload(){
   ];
 }
 const progressBar = document.getElementById("HP");
-const test = document.getElementById("test");
+const points = document.getElementById("Points");
+const subHead = document.getElementById("subhead");
+const highestScore = document.getElementById("HighestScore");
 
 class Character {
   constructor(x, y, sprite, speed, level) {
@@ -27,8 +29,8 @@ class Character {
     image(playerSprite,this.x,this.y);
   }
   move(target) {
-    this.x += (target.x - this.x) * this.speed;
-    this.y += (target.y - this.y) * this.speed;
+    this.x += (target.x - this.x) * this.speed*this.level*.2;
+    this.y += (target.y - this.y) * this.speed*this.level*.2;
   }
 }
 
@@ -62,6 +64,7 @@ function draw() {
 
 function adjust() {
   virusAttack();
+  updateScore();
  const characters = [player, ...enemies];
  for (let i = 0; i < characters.length; i++) {
    for (let j = i+1; j < characters.length; j++) {
@@ -104,13 +107,13 @@ function mouseClicked() {
   }
 }
 function gameOver(){
-  test.textContent = "Eureka! It works!!!!!!"
   fill("black");
   text("GAME OVER", 400, 80);
   textSize(40);
   text("To Play Again Press 'space'",400, 200)
   status = "gameOver"
   noLoop()
+  subHead.textContent = "Oof! You have been eradicated"
 }
 
 function keyPressed(){
@@ -123,8 +126,18 @@ function keyPressed(){
 }
 
 function reset(){
+  player = new Character(30, 30, playerSprite, 0.05, 1);
+  enemies = [
+    new Character(300, 0, enemySprite, 0.01, 1),
+    new Character(300, 300, enemySprite, 0.03, 1),
+    new Character(0, 300, enemySprite, 0.003, 1),
+    new Character(20, 400, enemySprite, 0.02, 1),
+  ];
   loop();
+  subHead.textContent = "Don't let the antibodies get you!"
+  score = 0;
   progressBar.value = 100;
+  textSize(fontsize);
   player.x = 30;
   player.y = 30;
   enemies.forEach(enemy => enemy.x= 600, enemy.y= 300);
@@ -141,4 +154,22 @@ function virusAttack() {
       gameOver()
     }
   }
+}
+
+function updateScore() {
+  score+= 0.05;
+  let projectedScore = Math.floor(score);
+  points.textContent = projectedScore;
+  if (projectedScore> highscore){
+    highestScore.textContent = projectedScore;
+    highscore = score;
+  }
+  if (projectedScore%35 === 0 && score!== 0){
+    nextLevel()
+  }
+}
+
+function nextLevel(){
+  let newEnemy = new Character(300, 300, enemySprite, 0.03, level*1.005);
+  enemies.push(newEnemy);
 }
