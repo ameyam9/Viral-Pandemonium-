@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "browser-sync start --server -f -w",
-    "start":"node index.js"
+    "start":"node index.js",
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,10 @@
   "homepage": "https://github.com/ameyam9/p5-starter-app#readme",
   "dependencies": {
     "browser-sync": "^2.26.3",
-    "http-server": "^0.11.1"
+    "http-server": "^0.11.1",
+    "express": "^4.9.8",
+  },
+  "engines": {
+    "node": "12.0"
   }
 }
