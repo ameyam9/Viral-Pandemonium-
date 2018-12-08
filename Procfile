@@ -1,1 +1,1 @@
-web:node index.js
+web:browser-sync start --server -f -w
